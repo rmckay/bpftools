@@ -67,7 +67,12 @@ static void get_asm_insns(uint8_t *image, size_t len, unsigned long base,
 
 	disassemble_init_for_target(&info);
 
-	disassemble = disassembler(bfdf);
+	// Hard code x86_64 options
+	bfd_boolean big = FALSE;
+	unsigned long mach = bfd_mach_x86_64;
+	enum bfd_architecture arc =  bfd_arch_i386;
+	disassemble = disassembler(arc, big, mach, bfdf);
+
 	assert(disassemble);
 
 	do {
